@@ -1,23 +1,313 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
+  <style>
+    /* 기본 레이아웃 및 폰트 설정 */
+    body { font-family: 'Noto Sans KR', sans-serif; margin:0; padding:0; background:#f0f4f8; color:#333; line-height:1.8; }
+    header, section, footer { max-width:960px; margin:20px auto; padding:25px; background:#ffffff; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.05); }
+    /* 제목 스타일링 */
+    h1, h2, h3 { color:#0a4c8f; margin-bottom:15px; font-weight:700; }
+    h1 { font-size:2.8rem; line-height:1.4; color:#0b3d91; }
+    h2 { font-size:2.2rem; border-bottom:3px solid #e1e7f0; padding-bottom:10px; color:#1a527f; }
+    h3 { font-size:1.7rem; color:#3a7a9f; margin-top:25px; margin-bottom:10px; }
+    /* 텍스트 및 목록 스타일 */
+    p, li, td, th { font-size:1rem; line-height:1.8; color:#444; }
+    ul, ol { padding-left:25px; margin-bottom:20px; }
+    li { margin-bottom:10px; }
+    /* 테이블 스타일 */
+    table { width:100%; border-collapse: collapse; margin:25px 0; font-size:0.95rem; }
+    th, td { border:1px solid #e1e7f0; padding:15px; text-align:left; }
+    th { background:#f5f8ff; color:#1a527f; font-weight:700; }
+    td { background:#ffffff; }
+    /* CTA 버튼 스타일 */
+    .btn-cta {
+      display:inline-block;
+      padding:16px 35px;
+      background:#4285f4;
+      color:#fff;
+      font-weight:700;
+      border:none;
+      border-radius:30px;
+      box-shadow:0 6px 15px rgba(66, 133, 244, 0.3);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      text-decoration:none;
+      text-align:center;
+      margin-top:20px;
+    }
+    .btn-cta:hover { background:#3367d6; transform:translateY(-2px); }
+    /* 폼 스타일 */
+    .form-group { margin-bottom:20px; }
+    label { display:block; font-weight:700; margin-bottom:8px; color:#1a527f; }
+    input[type="text"], input[type="tel"], input[type="email"], textarea, select {
+      width:100%; padding:12px; border:1px solid #e1e7f0; border-radius:6px; box-sizing:border-box;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus, input[type="tel"]:focus, textarea:focus, select:focus { border-color:#4285f4; outline:none; }
+    /* 기타 스타일링 */
+    .anchor { display:block; position:relative; top:-80px; visibility:hidden; }
+    .highlight { background-color:#fff3cd; padding:10px; border-left:4px solid #f90; border-radius:4px; margin:20px 0; font-weight:bold; }
+    .nav-list { list-style:none; padding:0; display:flex; flex-wrap:wrap; justify-content:space-between; margin-bottom:20px; }
+    .nav-list li { width:calc(33.33% - 10px); text-align:center; margin-bottom:10px; background:#f5f8ff; border-radius:8px; transition:background 0.3s; }
+    .nav-list li a { display:block; padding:12px; text-decoration:none; color:#1a527f; font-weight:700; }
+    .nav-list li:hover { background:#e1e7f0; }
+    /* 반응형 디자인 */
+    @media(max-width:768px) {
+      body { padding:10px; }
+      header, section, footer { margin:10px auto; padding:15px; }
+      h1 { font-size:2rem; }
+      h2 { font-size:1.8rem; }
+      .nav-list li { width:calc(50% - 10px); }
+      .btn-cta { width:100%; }
+    }
+    @media(max-width:480px) {
+      .nav-list li { width:100%; }
+    }
+    /* 그래프 시각화 (간단한 예시) */
+    .chart-container { background:#f5f8ff; padding:20px; border-radius:8px; margin-top:20px; }
+    .chart-label { font-size:0.9rem; margin-top:10px; text-align:center; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>2026년 최신 보관이사 업체 순위 및 가격 비교 가이드</h1>
+    <p>보관이사는 일반 이사와 달리 짐을 장기간 안전하게 보관하는 과정이 추가됩니다. [보관이사업체순위]를 결정하는 핵심 요소들을 분석하고, 합리적인 비용으로 최상의 서비스를 제공하는 전문 업체를 선택하는 방법을 안내합니다.</p>
+    <a class="btn-cta" href="#contact">전문 업체 견적 비교하기</a>
+  </header>
+
+  <section id="nav-section">
+    <nav aria-label="페이지 내 이동">
+      <ul class="nav-list">
+        <li><a href="#definition">보관이사란 무엇인가?</a></li>
+        <li><a href="#ranking-factors">업체 순위 결정 요소</a></li>
+        <li><a href="#cost-guide">보관이사 비용 분석</a></li>
+        <li><a href="#local-analysis">지역별 서비스 비교 (전국)</a></li>
+        <li><a href="#checklist">필수 체크리스트</a></li>
+        <li><a href="#contact">견적 상담 신청</a></li>
+      </ul>
     </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+  </section>
+
+  <section id="definition">
+    <span id="definition-anchor" class="anchor"></span>
+    <h2>1. 보관이사, 일반 이사와 무엇이 다른가요?</h2>
+    <p>보관이사는 이사 날짜가 맞지 않거나, 집 인테리어 공사 등으로 인해 짐을 잠시 맡겨야 할 때 이용하는 서비스입니다. 단순히 짐을 옮기는 포장이사와 달리, 이삿짐을 안전하게 포장하여 일정 기간 동안 전용 보관 창고에 보관한 후, 원하는 날짜에 다시 새 거주지로 운반 및 정리해주는 일련의 과정을 말합니다. 이 서비스는 단기 보관(1개월 미만)부터 장기 보관(수개월 이상)까지 기간에 따라 유연하게 이용할 수 있습니다.</p>
+    <h3>1.1. 보관 유형의 차이: 컨테이너 vs 일반 창고</h3>
+    <p>보관이사의 보관 방식은 크게 두 가지로 나뉩니다. 첫 번째는 '컨테이너 보관이사'로, 이삿짐을 컨테이너에 담아 외부 보관소에 보관합니다. 컨테이너는 이동이 편리하지만, 온도 및 습도 관리에 취약할 수 있습니다. 두 번째는 '일반 창고 보관이사'로, 전용 창고에 짐을 보관하는 방식입니다. 일반 창고 중에서도 온습도 조절이 가능한 '항온항습 창고'를 갖춘 [보관이사업체]를 선택하는 것이 중요합니다. 특히 습기에 민감한 가구나 의류, 전자제품 등은 항온항습 창고에 보관해야 훼손을 방지할 수 있습니다. 보관이사 업체 순위를 따질 때 가장 먼저 확인해야 할 부분이 바로 이 보관 환경입니다.</p>
+  </section>
+
+  <section id="ranking-factors">
+    <span id="ranking-factors-anchor" class="anchor"></span>
+    <h2>2. 보관이사업체 순위 결정에 영향을 미치는 핵심 요소 분석</h2>
+    <p>단순히 가격이 저렴한 업체를 고르는 것보다, 짐의 안전을 보장하는 업체를 선택하는 것이 [보관이사]에서는 더욱 중요합니다. 다음은 [보관이사업체순위]를 결정하는 주요 평가 기준입니다.</p>
+
+    <h3>2.1. 짐 보관의 안전성 및 창고 시설</h3>
+    <ul>
+      <li><strong>항온항습 시스템:</strong> 한국의 사계절 기후 특성상 온도와 습도 변화는 짐의 훼손에 치명적입니다. 결로 현상이나 곰팡이를 방지하기 위해 항온항습 시설을 갖춘 업체인지 확인해야 합니다.</li>
+      <li><strong>보안 시스템:</strong> 도난 방지를 위한 CCTV, 24시간 보안 요원 상주 여부, 출입 통제 시스템 등 보안 시설이 잘 갖춰져 있는지 필수적으로 확인해야 합니다.</li>
+      <li><strong>화재 방지 시스템:</strong> 스프링클러, 화재 감지기 등 화재 예방 시스템이 완비되어 있는지 확인하여 만일의 사태에 대비합니다.</li>
+    </ul>
+
+    <h3>2.2. 보험 가입 및 배상 책임 여부</h3>
+    <p>이사 과정 중 발생하는 짐의 파손이나 분실에 대비하여, 정식으로 '화물자동차 운송 주선사업 허가증'을 보유하고 '적재물 배상책임보험'에 가입된 업체인지 확인해야 합니다. [보관이사]는 일반 이사보다 보관 기간이 추가되므로, 보험 가입 여부와 보상 범위는 업체를 선택하는 데 있어 가장 중요한 순위 결정 요소 중 하나입니다.</p>
+
+    <h3>2.3. 서비스 품질 (전문 포장 및 정리)</h3>
+    <p>짐을 보관하기 위해 포장하고 다시 꺼내서 정리하는 과정에서 손상이 발생할 수 있습니다. 특히 가구 분해 및 재조립이 필요한 경우, 숙련된 전문 인력이 포장부터 보관, 운송, 정리까지 일관성 있게 담당해야 합니다. [보관이사] 전문 업체는 보관에 적합한 특수 포장재(방습 포장재, 에어캡 등)를 사용하여 짐을 보호합니다.</p>
+
+    <h3>2.4. 가격 투명성 및 추가 비용 여부</h3>
+    <p>보관이사 비용은 기본 운송비 외에 보관 기간에 따른 일별/월별 보관료가 추가됩니다. 견적 시 보관료 외에 발생할 수 있는 추가 비용(사다리차 비용, 가전 설치비, 폐기물 처리비 등)을 명확하게 안내받아야 합니다. [보관이사업체순위]를 비교할 때는 단순한 견적 비용뿐만 아니라, 모든 추가 비용을 포함한 총액을 비교하는 것이 현명합니다.</p>
+  </section>
+
+  <section id="cost-guide">
+    <span id="cost-guide-anchor" class="anchor"></span>
+    <h2>3. 2026년 보관이사 비용 상세 분석 및 견적 가이드</h2>
+    <p>보관이사 비용은 일반 이사와 마찬가지로 짐의 양(평수), 운반 거리, 보관 기간, 서비스 유형에 따라 크게 달라집니다. 특히 보관 기간이 길어질수록 월별 보관료가 누적되므로, 장기 보관 시에는 견적을 꼼꼼히 비교해야 합니다.</p>
+
+    <h3>3.1. 보관 기간별 예상 비용 (2026년 기준)</h3>
+    <p>다음 표는 2026년 기준 짐의 양에 따른 보관이사 비용의 대략적인 예상치입니다. 이는 참고용이며, 정확한 견적은 현장 방문을 통해 짐의 부피와 보관 환경을 고려하여 산정됩니다.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>이사 유형</th>
+          <th>보관 기간</th>
+          <th>예상 비용 (운반비 포함, 짐의 양에 따라 변동)</th>
+          <th>주요 비용 구성 요소</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1인 가구 (원룸)</td>
+          <td>1개월 보관 기준</td>
+          <td>30만원 ~ 50만원 (보관료: 10~15만원/월)</td>
+          <td>운송비 + 1개월 보관료</td>
+        </tr>
+        <tr>
+          <td>2인 가구 (투룸/소형 아파트)</td>
+          <td>1개월 보관 기준</td>
+          <td>50만원 ~ 80만원 (보관료: 15~25만원/월)</td>
+          <td>운송비 + 1개월 보관료 + 사다리차 유무</td>
+        </tr>
+        <tr>
+          <td>3~4인 가구 (아파트)</td>
+          <td>1개월 보관 기준</td>
+          <td>80만원 ~ 120만원 (보관료: 25~40만원/월)</td>
+          <td>운송비 + 1개월 보관료 + 짐의 양에 따른 차량 대수</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>참고:</strong> 위 비용은 평균적인 수치이며, 짐의 양이 많을수록, 보관 기간이 길어질수록 비용은 증가합니다. 특히 성수기(3, 9, 10월)에는 비용이 비수기 대비 10~30% 가량 상승할 수 있습니다.</p>
+
+    <h3>3.2. 보관 기간에 따른 비용 변화 (그래프 분석)</h3>
+    <p>보관이사는 일반 이사와 달리 기간이 늘어날수록 비용이 선형적으로 증가합니다. 장기 보관을 계획 중이라면 월별 보관료 할인 정책을 확인하거나, 창고 보관 서비스 전문 업체와 협의하는 것이 좋습니다. 아래 그래프는 보관 기간에 따른 총 비용의 변화를 보여줍니다.</p>
+    <div class="chart-container">
+      <p style="text-align:center;"><strong>[가상 데이터] 보관 기간별 총 예상 비용 변화 (2인 가구 기준)</strong></p>
+      <img src="https://via.placeholder.com/600x300?text=보관이사+기간별+비용+그래프" alt="보관 기간별 비용 그래프">
+      <p class="chart-label">x축: 보관 기간(월), y축: 총 비용(만원) - 기간이 길수록 비용 상승폭이 커짐을 보여줌</p>
+    </div>
+    <p class="highlight"><strong>팁:</strong> 보관 기간이 3개월 이상인 경우, 일반 보관이사보다 [장기 보관 전문 창고 서비스]를 함께 알아보는 것이 비용 효율적일 수 있습니다. 해당 서비스는 보관료가 상대적으로 저렴한 대신 운송 및 포장 서비스가 별도인 경우가 많으므로 비교가 필요합니다.</p>
+  </section>
+
+  <section id="local-analysis">
+    <span id="local-analysis-anchor" class="anchor"></span>
+    <h2>4. 전국 지역별 보관이사 서비스 비교 (핵심 키워드 분석)</h2>
+    <p>이사 서비스는 지역별로 업체 수, 경쟁률, 물류 인프라, 인건비 등에 따라 서비스의 질과 비용이 달라집니다. 특히 [보관이사업체순위]를 찾을 때는 거주 지역의 특성을 고려하여 업체를 선택해야 합니다. 다음은 전국 주요 지역별 [보관이사] 서비스의 특징입니다.</p>
+
+    <h3>4.1. 수도권 지역 보관이사 특성 (서울, 경기, 인천)</h3>
+    <p>서울, 경기 지역은 인구 밀도가 높고 이사 수요가 많아 [보관이사] 전문 업체 수가 가장 많은 지역입니다. 강남, 서초, 송파, 강동구 등 서울의 주요 지역은 아파트 재개발 및 인테리어 공사 수요가 많아 [보관이사] 시장이 활발합니다. 경기도 역시 수원, 성남, 용인, 고양, 부천, 화성, 평택 등 인구 밀집 지역을 중심으로 [보관이사] 수요가 높습니다.</p>
+    <ul>
+      <li><strong>서울 지역:</strong> [서울 보관이사] 업체는 대부분 첨단 항온항습 창고 시설을 갖추고 있으며, 특히 강남, 서초구는 고급 인테리어 가구 보관 수요가 많아 프리미엄 서비스가 발달해 있습니다.</li>
+      <li><strong>경기 지역:</strong> [경기 보관이사] 업체는 물류 접근성이 뛰어난 외곽 지역에 대형 창고를 운영하는 경우가 많습니다. 수원, 용인, 화성 지역은 신도시 개발로 [보관이사] 수요가 꾸준히 증가하고 있습니다.</li>
+      <li><strong>인천 지역:</strong> [인천 보관이사]는 국제 물류의 거점 특성상 컨테이너 보관이 발달해 있으며, 상대적으로 저렴한 비용으로 서비스를 제공하는 업체가 많습니다.</li>
+    </ul>
+
+    <h3>4.2. 주요 광역시 보관이사 서비스 비교</h3>
+    <p>부산, 대구, 대전, 광주, 울산 등 주요 광역시도 인구 유동이 많아 [보관이사] 시장이 활성화되어 있습니다. 특히 [부산 보관이사]는 해양성 기후 특성상 습도 조절이 중요하며, [대구 보관이사]는 내륙 기후에 맞는 보관 환경이 필요합니다.</p>
+    <ul>
+      <li><strong>부산/울산 지역:</strong> [부산 보관이사] 업체는 해안 지역 특성상 습기 관리에 더욱 중점을 둡니다. 항만 지역에서는 국제 이사 화물 보관 서비스도 함께 제공하는 경우가 많습니다.</li>
+      <li><strong>대전/세종 지역:</strong> [대전 보관이사]는 정부 기관 및 연구 단지가 많아 단기 보관 수요가 높습니다. [세종 보관이사]는 신도시 인프라를 활용한 전문 업체들이 많습니다.</li>
+      <li><strong>대구/경북 지역:</strong> [대구 보관이사]는 대구, 구미, 포항 등 경북권 주요 도시를 아우르는 물류 네트워크를 구축하고 있습니다.</li>
+    </ul>
+
+    <h3>4.3. 중소 도시 및 지방 보관이사 특징 (전라, 경상, 충청, 강원)</h3>
+    <p>[보관이사] 서비스는 대도시뿐만 아니라 중소 도시에서도 필요합니다. 강원도, 충청도, 전라도 지역은 상대적으로 업체 수가 적지만, 지역 전문 업체가 보관 서비스의 품질을 높이기 위해 노력하고 있습니다.</p>
+    <ul>
+      <li><strong>충청 지역:</strong> [충남 보관이사] (천안, 아산) 및 [충북 보관이사] (청주) 지역은 수도권과 인접하여 물류 이동이 활발합니다.</li>
+      <li><strong>경상 지역:</strong> [경남 보관이사] (창원, 김해) 및 [경북 보관이사] (포항, 구미) 지역은 산업단지 근로자들의 이사 수요가 많습니다.</li>
+      <li><strong>전라 지역:</strong> [전북 보관이사] (전주) 및 [전남 보관이사] (순천, 목포) 지역은 인구 유동에 따른 다양한 [보관이사] 요구사항이 있습니다.</li>
+      <li><strong>강원 지역:</strong> [강원 보관이사] (춘천, 원주, 강릉)는 레저 및 휴양지 이사 수요에 맞춰 전문 보관 서비스를 제공합니다.</li>
+    </ul>
+    <p><strong>함께 많이 찾는 키워드:</strong> [보관이사 가격 비교], [보관이사 후기], [포장이사 보관] 등</p>
+  </section>
+
+  <section id="checklist">
+    <span id="checklist-anchor" class="anchor"></span>
+    <h2>5. 안전한 보관이사를 위한 필수 체크리스트 (2026년 업데이트)</h2>
+    <p>[보관이사업체]를 선택한 후에도 이사 과정에서 짐의 손실을 최소화하고, 모든 과정을 원활하게 진행하기 위한 준비가 필요합니다. 다음은 [보관이사] 전후로 반드시 확인해야 할 사항들입니다.</p>
+    <h3>5.1. 이사 전 준비 단계</h3>
+    <ol>
+      <li><strong>짐 목록 및 귀중품 관리:</strong> 보관할 짐의 목록을 상세히 작성하고, 고가품이나 귀중품은 따로 분류하여 직접 보관합니다.</li>
+      <li><strong>보관 전용 포장재 사용:</strong> 일반 이사 포장재가 아닌, 습기와 충격에 강한 보관 전용 포장재를 사용하는지 업체에 확인합니다.</li>
+      <li><strong>전자제품 사전 점검:</strong> 가전제품은 보관 전에 작동 여부를 확인하고, 전원을 끄고 물기를 완전히 제거해야 합니다.</li>
+      <li><strong>보관 창고 방문:</strong> 계약 전 보관 창고를 직접 방문하여 보안, 청결도, 항온항습 시설 유무를 확인하는 것이 가장 중요합니다.</li>
+      <li><strong>계약서 작성 시 보상 범위 확인:</strong> 계약서에 보관 기간, 보관료, 보관 짐 목록, 보험 가입 여부, 손해 배상 기준을 명확히 명시합니다.</li>
+    </ol>
+
+    <h3>5.2. 이사 당일 및 보관 기간 중 주의사항</h3>
+    <ul>
+      <li><strong>현장 짐 확인:</strong> 짐을 창고에 보관하기 전, 운반 차량에서 짐의 파손 여부를 확인하고 사진 기록을 남깁니다.</li>
+      <li><strong>보관 중 짐 관리:</strong> 장기 보관의 경우, 보관 기간 동안 창고에 짐을 보관하는 업체에서 정기적으로 상태를 점검하는지 확인합니다.</li>
+      <li><strong>행정 처리:</strong> 우편물 주소 변경, 공과금 정리, 이사 관련 보험 처리 등 행정 절차를 미리 완료합니다.</li>
+    </ul>
+
+    <h3>5.3. 참고 자료 (외부 신뢰성 확보)</h3>
+    <p>보관이사는 일반 이사와 다르게 짐의 안전한 보관이 핵심이므로, 업체를 신중하게 선택해야 합니다. 한국소비자원의 <a href="https://www.consumer.go.kr/user/cn/move/index.do" target="_blank" rel="nofollow">이사 서비스 피해 구제 사례</a>를 참고하여 피해를 예방할 수 있으며, <a href="https://www.namu.wiki/w/%EC%9D%B4%EC%82%AC" target="_blank" rel="nofollow">나무위키 이사 항목</a>에서 이사 유형별 정보를 얻을 수도 있습니다. [보관이사업체순위]에 대한 객관적인 정보를 찾기 위해 정부 기관에서 제공하는 <a href="https://www.gov.kr/portal/service/serviceInfo/150000000004" target="_blank" rel="nofollow">주거 이전 서비스 정보</a>도 활용할 수 있습니다.</p>
+  </section>
+
+  <section id="faq">
+    <span id="faq-anchor" class="anchor"></span>
+    <h2>6. 자주 묻는 질문 (FAQ)</h2>
+    <dl>
+      <dt>Q1: [보관이사] 비용은 언제 지불하나요?</dt>
+      <dd>A: 일반적으로 보관이사는 이사 당일 짐 운송 및 보관료를 선불로 지불합니다. 보관 기간에 따라 월별로 후불 납부가 가능한 업체도 있습니다. 계약 시 결제 방식을 명확히 확인해야 합니다.</dd>
+
+      <dt>Q2: 짐이 보관 창고에 있는 동안 추가적으로 짐을 넣거나 뺄 수 있나요?</dt>
+      <dd>A: 대부분의 [보관이사업체]는 짐 보관 기간 중 추가적인 입출고를 허용하지 않습니다. 짐의 파손 위험을 줄이고 보안을 유지하기 위함입니다. 보관이 시작되기 전에 필요한 물품을 정확히 분류해야 합니다.</dd>
+
+      <dt>Q3: [보관이사] 견적 시 짐 부피를 정확히 계산하는 방법이 있나요?</dt>
+      <dd>A: 이사업체는 보통 짐의 부피를 톤(T) 단위나 평(P) 단위로 계산합니다. 가구 및 가전제품의 종류와 수량, 박스 개수 등을 기준으로 현장 방문 견적을 통해 정확한 부피를 측정합니다. [보관이사업체] 견적 시에는 반드시 현장 방문 견적을 요청해야 합니다.</dd>
+
+      <dt>Q4: 보관 기간 중 짐이 손상되면 보상은 어떻게 받을 수 있나요?</dt>
+      <dd>A: 정식 허가 업체는 적재물 배상책임보험에 가입되어 있습니다. 손해 배상 기준에 따라 짐의 원가 또는 감가상각을 고려하여 보상합니다. 다만, 짐을 포장하기 전에 기존에 존재했던 흠집이나 파손은 보상 대상에서 제외될 수 있습니다. 계약서의 보상 범위를 꼼꼼히 확인하세요.</dd>
+    </dl>
+    <p class="highlight"><strong>[보관이사 잘하는 곳] 찾기 팁:</strong> 견적 비교 플랫폼을 통해 여러 업체의 견적을 동시에 받고, 창고 시설, 보험 가입 여부, 후기를 종합적으로 비교하는 것이 가장 효율적입니다.</p>
+  </section>
+
+  <section id="contact">
+    <span id="contact-anchor" class="anchor"></span>
+    <h2>7. 전국 보관이사 견적 상담 및 업체 비교 요청</h2>
+    <p>안전한 [보관이사] 서비스를 위해서는 전문 업체와의 정확한 상담이 필수입니다. 아래 양식에 고객님의 이사 정보와 보관 기간을 입력해 주시면, 고객님의 조건에 맞는 [보관이사업체순위] 상위권 업체들을 추천해 드립니다. 견적 문의는 무료로 진행됩니다.</p>
+    <form action="/submit" method="POST" style="max-width:700px; margin:auto; padding:30px; border:1px solid #e1e7f0; border-radius:10px; background:#fdfdfd;">
+      <h3>보관이사 상세 견적 신청서</h3>
+      <div class="form-group">
+        <label for="name">이름<span style="color:red;">*</span></label>
+        <input type="text" id="name" name="name" required placeholder="예: 홍길동" />
+      </div>
+
+      <div class="form-group">
+        <label for="phone">연락처<span style="color:red;">*</span></label>
+        <input type="tel" id="phone" name="phone" required placeholder="예: 010-1234-5678" pattern="[0-9\-]+" />
+      </div>
+
+      <div class="form-group">
+        <label for="current_address">현재 거주지 주소<span style="color:red;">*</span></label>
+        <input type="text" id="current_address" name="current_address" required placeholder="예: 서울특별시 강남구 역삼동" />
+      </div>
+
+      <div class="form-group">
+        <label for="move_type">이사 형태<span style="color:red;">*</span></label>
+        <select id="move_type" name="move_type" required>
+          <option value="">이사 형태를 선택해 주세요</option>
+          <option value="보관이사 (포장 포함)">보관이사 (포장 포함)</option>
+          <option value="보관이사 (고객 포장)">보관이사 (고객 포장)</option>
+          <option value="일반 포장이사">일반 포장이사</option>
+          <option value="사무실 이사">사무실 이사</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="house_size">짐의 양 (이사할 집 평수)</label>
+        <select id="house_size" name="house_size">
+          <option value="">평수를 선택해 주세요</option>
+          <option value="10평 미만">10평 미만 (원룸)</option>
+          <option value="10-20평">10~20평 (투룸/소형 아파트)</option>
+          <option value="20-30평">20~30평 (아파트)</option>
+          <option value="30평 이상">30평 이상 (대형 아파트)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="storage_period">보관 희망 기간 (개월 단위)<span style="color:red;">*</span></label>
+        <input type="number" id="storage_period" name="storage_period" min="1" max="120" required placeholder="예: 3 (3개월)" />
+      </div>
+
+      <div class="form-group">
+        <label for="move_date">이사 희망 날짜</label>
+        <input type="date" id="move_date" name="move_date" />
+      </div>
+
+      <div class="form-group">
+        <label for="move_detail">추가 요청 사항 및 특이사항</label>
+        <textarea id="move_detail" name="move_detail" rows="5" placeholder="예: 이삿짐 중 고가 가구 포함 여부, 보관 창고 환경 요청 사항 등 자세히 기재해 주시면 정확한 견적에 도움이 됩니다."></textarea>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn-cta">무료 견적 요청하기</button>
+      </div>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2026 보관이사 전문 서비스. 모든 견적은 제휴 업체를 통해 진행됩니다.</p>
+    <p>본 페이지는 [보관이사업체순위]에 대한 정보 제공을 목적으로 하며, 특정 업체의 순위를 보장하지 않습니다.</p>
+    <p>고객센터: <a href="tel:0311234567">031-123-4567</a> | 이메일: <a href="mailto:help@domain.com">help@domain.com</a></p>
+  </footer>
+
+
+  
